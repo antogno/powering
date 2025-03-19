@@ -1,0 +1,16 @@
+!*/cache/.htaccess
+!*/cache/index.html
+!*/logs/index.html
+!application/logs/.htaccess
+!application/logs/index.html
+*/cache/*
+*/config/development
+*/logs/log-*.php
+.DS_Store
+.env
+/vendor/
+application/logs/*
+user_guide_src/build/*
+user_guide_src/cilexer/build/*
+user_guide_src/cilexer/dist/*
+user_guide_src/cilexer/pycilexer.egg-info/*

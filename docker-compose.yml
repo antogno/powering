@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  powering-nginx:
+    image: nginx:1.27.4
+    container_name: powering-nginx
+    ports:
+      - "8083:80"
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www/html
+    depends_on:
+      - powering-php
+    networks:
+      - powering
+  powering-php:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: powering-php
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - powering
+  powering-mysql:
+    image: mysql:9.2.0
+    container_name: powering-mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - powering-db:/var/lib/mysql
+    networks:
+      - powering
+volumes:
+  powering-db:
+networks:
+  powering:
